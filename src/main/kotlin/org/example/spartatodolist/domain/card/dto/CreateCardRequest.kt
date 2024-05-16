@@ -1,6 +1,7 @@
 package org.example.spartatodolist.domain.card.dto
 
-data class UpdateCardResponse(
+data class CreateCardRequest(
     val title:String,
-    val description:String?
+    val description:String?,
+
 )
