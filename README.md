@@ -17,6 +17,22 @@ User
 
 
 
+## 작동방식
+
+- Client request -> @RequestMapping("/cards")하위의 요청을 CardController가 담당
+- 요쳉이 맞는 비즈니스 로직 수행울 하는 cardService에서 비즈니스 로직 수행 후 cardRepository로 값을 저장
+- 비즈니스 로직 수행이 끝난후 CardController가  DTO를 Status code와 함께 반환
+- 반환된 dto형태를 dispatcher-Servlet이 Client에게 response
+
+
+## 예외처리
+
+domain하위에 exception 폴더를 만들어 예외처리와 관련된 코드를 작성했으며
+RuntimeException을 상속받는 ModelNotFoundException class를 정의하여 예외처리가 어느 Model에서 발생했고 id값은 무엇인지 출력되게 함
+
+ ModelNotFoundException를 전역적으로 처리하기 위해서 @RestControllerAdvice 어노테이션을 이용하여 GlobalExceptionHandler class가 전역적으로 처리할 수 있도록 설계함
+
+
 ## Clone the repository
 
 1. **Clone the repository**:
