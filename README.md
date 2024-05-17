@@ -4,14 +4,14 @@
 
 ## 기능
 
-#Card
+Card
 - **createCard**: TO-DO-LIST 카드 생성
 - **getCardList**: 전체 TO-DO-LIST 카드 조회
 - **getCard**: ID를 기반으로 TO-DO-LIST 카드 조회 
 - **updateCard**: ID를 기반으로 TO-DO-LIST 카드 수정
 - **deleteCard**: ID를 기반으로 TO-DO-LIST 카드 삭제
 
-#User
+User
 - **signUp**: 사용자의 정보 생성
 - **updateUserProfile** 사용자의 정보 수정
 
@@ -23,3 +23,9 @@
     ```bash
     https://github.com/kotlin2024/SpartaToDoList.git
     ```
+
+
+## Swagger로 테스트하기
+```bash
+ http://localhost:8080/swagger-ui/index.html
+```
