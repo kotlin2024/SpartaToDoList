@@ -21,5 +21,5 @@
 
 1. **Clone the repository**:
     ```bash
-    git clone https://
+    https://github.com/kotlin2024/SpartaToDoList.git
     ```
