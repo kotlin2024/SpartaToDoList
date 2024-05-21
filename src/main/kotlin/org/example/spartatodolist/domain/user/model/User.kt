@@ -7,7 +7,7 @@ import org.example.spartatodolist.domain.user.dto.UserResponse
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
 
 @Entity
-@Table(name="user")
+@Table(name="app_users")
 class User(
     @Column(name="loginId")
     val loginId:String,
