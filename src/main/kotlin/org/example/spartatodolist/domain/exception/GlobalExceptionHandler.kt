@@ -18,4 +18,9 @@ class GlobalExceptionHandler {
     fun handleIllegalStateException(e:IllegalStateException):ResponseEntity<ErrorResponse>{
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ErrorResponse(e.message))
     }
+
+    @ExceptionHandler(IncorrectPasswordException::class)
+    fun handleIncorrectPasswordException(e:IncorrectPasswordException):ResponseEntity<ErrorResponse>{
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse(e.message))
+    }
 }

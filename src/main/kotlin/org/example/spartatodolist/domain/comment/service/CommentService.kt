@@ -9,6 +9,7 @@ import org.example.spartatodolist.domain.comment.dto.UpdateCommentRequest
 import org.example.spartatodolist.domain.comment.model.Comment
 import org.example.spartatodolist.domain.comment.model.toResponse
 import org.example.spartatodolist.domain.comment.repository.CommentRepository
+import org.example.spartatodolist.domain.exception.IncorrectPasswordException
 import org.example.spartatodolist.domain.exception.ModelNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.ResponseEntity
@@ -24,6 +25,8 @@ class CommentService(
         val card=cardRepository.findByIdOrNull(cardId)?: throw ModelNotFoundException("Card",cardId)
         return commentRepository.findAllByCard(card).map{it.toResponse()}
     }
+
+
 
     @Transactional
     fun createComment(cardId:Long, request:CreateCommentRequest):CommentResponse{
@@ -44,7 +47,7 @@ class CommentService(
         val comment=commentRepository.findByIdOrNull(commentId)?: throw ModelNotFoundException("Comment",commentId)
 
         if(comment.commenterPassword != request.commenterPassword){
-            throw IllegalArgumentException("비밀번호가 틀려요")
+            throw IncorrectPasswordException("비밀번호 틀림!")
         }
 
 
@@ -66,7 +69,7 @@ class CommentService(
         val comment=commentRepository.findByIdOrNull(commentId)?: throw ModelNotFoundException("Comment",commentId)
 
         if(comment.commenterPassword != request.commenterPassword){
-            throw IllegalArgumentException("비밀번호가 틀려요")
+            throw IncorrectPasswordException("비밀번호 틀림!")
         }
 
 
