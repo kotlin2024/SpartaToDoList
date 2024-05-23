@@ -1,13 +1,16 @@
 package org.example.spartatodolist.domain.comment.service
 
+import jakarta.transaction.Transactional
 import org.example.spartatodolist.domain.card.repository.CardRepository
 import org.example.spartatodolist.domain.comment.dto.CommentResponse
 import org.example.spartatodolist.domain.comment.dto.CreateCommentRequest
+import org.example.spartatodolist.domain.comment.dto.UpdateCommentRequest
 import org.example.spartatodolist.domain.comment.model.Comment
 import org.example.spartatodolist.domain.comment.model.toResponse
 import org.example.spartatodolist.domain.comment.repository.CommentRepository
 import org.example.spartatodolist.domain.exception.ModelNotFoundException
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 @Service
@@ -21,6 +24,7 @@ class CommentService(
         return commentRepository.findAllByCard(card).map{it.toResponse()}
     }
 
+    @Transactional
     fun createComment(cardId:Long, request:CreateCommentRequest):CommentResponse{
         val card=cardRepository.findByIdOrNull(cardId)?: throw ModelNotFoundException("Card",cardId)
 
@@ -32,12 +36,29 @@ class CommentService(
         )).toResponse()
     }
 
-    fun updateComment(){
+
+    @Transactional
+    fun updateComment(cardId:Long,commentId:Long, request: UpdateCommentRequest): CommentResponse {
+        val card=cardRepository.findByIdOrNull(cardId)?: throw ModelNotFoundException("Card",cardId)
+        val comment=commentRepository.findByIdOrNull(commentId)?: throw ModelNotFoundException("Comment",commentId)
+
+        val(commenterName, commenterPassword, commentInform) = request
+
+        comment.commenterName =commenterName
+        comment.commenterPassword =commenterPassword
+        comment.commentInform =commentInform
+
+        return commentRepository.save(comment).toResponse()
+
 
     }
 
-    fun deleteComment(){
+    @Transactional
+    fun deleteComment(cardId:Long,commentId:Long){
+        val card=cardRepository.findByIdOrNull(cardId)?: throw ModelNotFoundException("Card",cardId)
+        val comment=commentRepository.findByIdOrNull(commentId)?: throw ModelNotFoundException("Comment",commentId)
 
+        commentRepository.delete(comment)
     }
 
 }

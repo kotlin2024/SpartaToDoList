@@ -3,22 +3,25 @@ package org.example.spartatodolist.domain.comment.model
 import jakarta.persistence.*
 import org.example.spartatodolist.domain.card.model.Card
 import org.example.spartatodolist.domain.comment.dto.CommentResponse
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 
 
 @Entity
 @Table(name = "comment")
 class Comment(
     @Column(name = "Name")
-    val commenterName:String,
+    var commenterName:String,
 
     @Column(name = "Password")
-    val commenterPassword: String,
+    var commenterPassword: String,
 
     @Column(name = "comment")
-    val commentInform:String,
+    var commentInform:String,
 
-    @ManyToOne
-    @JoinColumn(name="card_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="card_id",nullable=false)
+    @OnDelete(action= OnDeleteAction.CASCADE)
     val card: Card
 
 ){
