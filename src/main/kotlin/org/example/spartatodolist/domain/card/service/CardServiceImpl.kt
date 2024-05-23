@@ -18,7 +18,8 @@ class CardServiceImpl(
     private val userRepository: UserRepository
 ):CardService {
     override fun getAllCardList(): List<CardResponse> {
-        return cardRepository.findAll().map{ it.toResponse() }
+        val cardRepositoryWithFinished= cardRepository.findAll().sortedWith(compareBy<Card>{it.finished}.thenBy{it.id})
+        return cardRepositoryWithFinished.map{ it.toResponse() }
     }
 
     override fun getCardById(cardId: Long): CardResponse {
@@ -39,10 +40,11 @@ class CardServiceImpl(
     @Transactional
     override fun updateCard(cardId: Long, request: UpdateCardRequest): CardResponse {
         val card=cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card",cardId)
-        val(title,description) = request
+        val(title,description,finished) = request
 
         card.title=title
         card.description=description
+        card.finished=finished
 
         return cardRepository.save(card).toResponse()
     }

@@ -17,6 +17,9 @@ class Card (
     @Column(name= "description" )
     var description: String? = null,
 
+    @Column(name="finished")
+    var finished: Boolean = false
+
 
 ){
 
@@ -28,6 +31,7 @@ fun Card.toResponse(): CardResponse {
     return CardResponse(
         id = id!!,
         title = title,
-        description = description
+        description = description,
+        finished = finished
     )
 }
