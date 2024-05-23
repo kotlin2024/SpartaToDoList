@@ -3,6 +3,7 @@ package org.example.spartatodolist.domain.comment.controller
 import org.example.spartatodolist.domain.card.dto.CreateCardRequest
 import org.example.spartatodolist.domain.comment.dto.CommentResponse
 import org.example.spartatodolist.domain.comment.dto.CreateCommentRequest
+import org.example.spartatodolist.domain.comment.dto.DeleteCommentRequest
 import org.example.spartatodolist.domain.comment.dto.UpdateCommentRequest
 import org.example.spartatodolist.domain.comment.model.Comment
 import org.example.spartatodolist.domain.comment.service.CommentService
@@ -33,8 +34,8 @@ class CommentController(
     }
 
     @DeleteMapping("/cards/{cardId}/comments/{commentId}")
-    fun deleteComment(@PathVariable cardId:Long,@PathVariable commentId:Long):ResponseEntity<Unit>{
-        commentService.deleteComment(cardId,commentId)
+    fun deleteComment(@PathVariable cardId:Long,@PathVariable commentId:Long,@RequestBody deleteCommentRequest: DeleteCommentRequest):ResponseEntity<Unit>{
+        commentService.deleteComment(cardId,commentId,deleteCommentRequest)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 

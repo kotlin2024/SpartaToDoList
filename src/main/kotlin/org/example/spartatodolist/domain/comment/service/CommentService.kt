@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional
 import org.example.spartatodolist.domain.card.repository.CardRepository
 import org.example.spartatodolist.domain.comment.dto.CommentResponse
 import org.example.spartatodolist.domain.comment.dto.CreateCommentRequest
+import org.example.spartatodolist.domain.comment.dto.DeleteCommentRequest
 import org.example.spartatodolist.domain.comment.dto.UpdateCommentRequest
 import org.example.spartatodolist.domain.comment.model.Comment
 import org.example.spartatodolist.domain.comment.model.toResponse
@@ -42,6 +43,12 @@ class CommentService(
         val card=cardRepository.findByIdOrNull(cardId)?: throw ModelNotFoundException("Card",cardId)
         val comment=commentRepository.findByIdOrNull(commentId)?: throw ModelNotFoundException("Comment",commentId)
 
+        if(comment.commenterPassword != request.commenterPassword){
+            throw IllegalArgumentException("비밀번호가 틀려요")
+        }
+
+
+
         val(commenterName, commenterPassword, commentInform) = request
 
         comment.commenterName =commenterName
@@ -54,9 +61,14 @@ class CommentService(
     }
 
     @Transactional
-    fun deleteComment(cardId:Long,commentId:Long){
+    fun deleteComment(cardId:Long,commentId:Long,request: DeleteCommentRequest){
         val card=cardRepository.findByIdOrNull(cardId)?: throw ModelNotFoundException("Card",cardId)
         val comment=commentRepository.findByIdOrNull(commentId)?: throw ModelNotFoundException("Comment",commentId)
+
+        if(comment.commenterPassword != request.commenterPassword){
+            throw IllegalArgumentException("비밀번호가 틀려요")
+        }
+
 
         commentRepository.delete(comment)
     }
