@@ -59,6 +59,7 @@ RuntimeException을 상속받는 ModelNotFoundException class를 정의하여 �
 
 
 ## Swagger로 테스트하기
-```bash
+
+   ```bash
  http://localhost:8080/swagger-ui/index.html
 ```
