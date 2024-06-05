@@ -4,7 +4,6 @@ import org.example.spartatodolist.domain.card.dto.CardResponse
 import org.example.spartatodolist.domain.card.dto.CreateCardRequest
 import org.example.spartatodolist.domain.card.dto.UpdateCardRequest
 import org.example.spartatodolist.domain.card.service.CardService
-import org.example.spartatodolist.domain.exception.ModelNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

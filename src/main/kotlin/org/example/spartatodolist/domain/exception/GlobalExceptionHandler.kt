@@ -1,6 +1,7 @@
 package org.example.spartatodolist.domain.exception
 
 import org.example.spartatodolist.domain.exception.dto.ErrorResponse
+import org.example.spartatodolist.domain.user.exception.InvalidCredentialException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -23,5 +24,10 @@ class GlobalExceptionHandler {
     @ExceptionHandler(IncorrectPasswordException::class)
     fun handleIncorrectPasswordException(e:IncorrectPasswordException):ResponseEntity<ErrorResponse>{
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse(e.message))
+    }
+
+    @ExceptionHandler
+    fun handleInvalidCredentialException(e: InvalidCredentialException):ResponseEntity<ErrorResponse>{
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ErrorResponse(e.message))
     }
 }

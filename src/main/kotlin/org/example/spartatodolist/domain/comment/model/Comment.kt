@@ -21,7 +21,7 @@ class Comment(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="card_id",nullable=false)
-    @OnDelete(action= OnDeleteAction.CASCADE) // 이거 왜 작동안함?
+    @OnDelete(action= OnDeleteAction.CASCADE) //
     val card: Card
 
 ){

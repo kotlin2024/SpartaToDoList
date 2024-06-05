@@ -1,4 +1,4 @@
-package org.example.spartatodolist.infra.swagger
+package org.example.spartatodolist.infra
 
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI

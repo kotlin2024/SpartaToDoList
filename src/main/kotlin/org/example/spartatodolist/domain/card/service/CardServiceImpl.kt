@@ -9,6 +9,7 @@ import org.example.spartatodolist.domain.card.model.toResponse
 import org.example.spartatodolist.domain.card.repository.CardRepository
 import org.example.spartatodolist.domain.exception.ModelNotFoundException
 import org.example.spartatodolist.domain.user.repository.UserRepository
+import org.example.spartatodolist.infra.Aop.StopWatch
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -22,6 +23,7 @@ class CardServiceImpl(
         return cardRepositoryWithFinished.map{ it.toResponse() }
     }
 
+    @StopWatch
     override fun getCardById(cardId: Long): CardResponse {
         val card=cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card",cardId)
         return card.toResponse()
